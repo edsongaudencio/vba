@@ -1,0 +1,40 @@
+Function querySQL (strQuery As String) As Boolean
+
+Dim col    As Integer
+Dim iCol   As Integer
+Dim I      As Long
+Dim line   As Integer
+Dim str    As Variant
+
+Dim SQLQRY    As String
+Dim server    As String
+
+shQ.Range("A1:AZ200000").Clear
+
+connection_sql
+CONN1.Execute strQuery
+
+RST1.Open strQuery, CONN1
+
+  iCol = RST1.fields.Count -1
+  iRow = 2
+
+  'Fields
+  For I = 0 To iCol
+    shQ.Cells(1, I + 1) = RST1.fields(I).Name
+  Next I
+
+  If Not RST1.EOF Then
+
+    Do While Not RST1.EOF
+
+      For I = 0 To iCol
+        str = RST1(I)
+        shQ.Cells(iRow, I + 1) = str
+      Next I
+
+    Loop
+
+  End If
+
+End Function
