@@ -1,0 +1,13 @@
+Function connect_sql_server()
+
+Set CONN1 = CreateObject("ADODB.connection")
+Set RST1  = CreateObject("ADODB.recordset")
+
+CONN1.ComandTimeout = 600000
+
+COON1.Open "Driver={SQL Server}";Server=DBCRMBONUS,8000,database1;" & _
+"Trusted_Connection=No; Inicial Catalog=Master;User ID=gaudencio;Passord=123~;
+
+connect_sql_server = True
+
+End Function
