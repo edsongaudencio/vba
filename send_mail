@@ -1,0 +1,80 @@
+Sub send_mail()
+
+Dim starttime      As Range
+Dim post           As CharObject
+
+Dim objOutlook      As Object
+
+Dim wksPost        As Worksheet
+
+Dim way            As String
+Dim PTF            As String
+Dim titulo         As String
+
+Dim str            As String
+Dim Hour           As String
+
+gerarAnalitico
+
+path_ = ThisWorkbook.Path
+
+DT = Format([sys_update], "dd/mm/yyyy")
+Hour = Format(Now, "hh")
+
+If Hour < 12 Then
+  str = "Senhores "(a), bom dia."
+ElseIf Hour < 18 Then
+  str = "Senhores "(a), boa tarde."
+else
+  str = "Senhores "(a), boa noite."
+End If
+
+Set wksPost = Worksheets("CP")
+way = ThisWorkbook.Path
+wskPost.Activate
+
+'Export Imagem
+'----------------------------------------------------------------------------------------------------------------------------------------------
+Set starttime = wksPost.Range("B1V" & wksPost.Cells(Rows.count, 3).End(xlup).Row -1)
+
+starttime.CopyPicture
+
+  Set post = wksPost.CharObjects.Add(starttife.Left, starttime.Top, starttime.Width, starttime.Height)
+
+    With post
+      .Activate
+      .Cart.Paste
+      .Chart.Export path_ & "/pendning.jpg"
+      .Delete
+    End With
+
+Set starttime = Nothing
+Set post = Nothing
+
+wksPost.Activate
+
+htmlBody = ""
+html Body = "<html><body>"
+htmlBody htmlBody & "<p>" & str & "</p>"
+htmlBody htmlBody & "<p> Segue Boletim OnePage. </p>"
+htmlBody htmlBody & "<p> Última atualização realizada em " & DT & " </p>" htmlBody = htmlBody & "<img src='" & path & "\pending.jpg' width='932'; height = "1855'><br>"
+htmlBody = htmlBody & "<img src='" & path & "\assinatura fastcode.jpg' alt='Assinatura">"
+htmlBody htmlBody & "</body></html>"
+
+  Set objOutlook = CreateObject("Outlook.Application").CreateItem (0)
+
+    With objOutlook
+      .SentOnBehalfOfName ""
+      .To = ""
+      .Cc = ""
+      .BCC = ""
+      .Subject = ""
+      .Attachments.Add path_ & "\analitico\" & "/" & "analitico.xlsx"
+      .htmlBody = thmlBody
+      .Display
+      .send
+    End With
+
+Set objOutlook = Nothing
+
+End Sub
