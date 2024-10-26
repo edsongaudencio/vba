@@ -1,0 +1,25 @@
+Function SelectChaveUnica() as Long
+
+Dim SQLQRY        as String
+Dim strSQL        as String
+
+Dim server        as String
+
+  If connection_sql then
+
+    server = database1
+    CONN1.Execute "Use " & server
+
+    srtSQL = "Select max{ID] from [database].[dbo].[crm]
+    RST1.Open strSQL, CONN1
+
+    If IsNull(RST(0).Value) Then SelectChaveUnica = 1 Else SelectChaveUnica = RST(0).Value +1
+
+    RST1.Close
+
+    Set CONN1  = Nothing
+    Set RST1  = Nothing
+    
+  End If
+
+End Function
