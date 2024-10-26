@@ -1,5 +1,8 @@
 Function connect_sql_server()
 
+Dim CONN1      As Object
+Dim RST1       As Object
+
 Set CONN1 = CreateObject("ADODB.connection")
 Set RST1  = CreateObject("ADODB.recordset")
 
