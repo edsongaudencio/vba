@@ -1,0 +1,20 @@
+Sub verificar_Tamnho_Imagem ()
+
+Dim imagemPath		as String
+Dim image		as Object
+Dim largura		as Long
+Dim altura		as Long
+
+imagemPath = "\\bsbrsp102\Gestocor\00_Fast Code Repair FCR/Boletim_Pending\capa_BD\08092024_BD INVESTIMENTOS.jpg"
+
+Set image LoadPicture (imagemPath)
+
+largura image.Width / 26.4583
+
+altura imagem.Altura / 26.4583
+
+MsgBox "Largura: " & largura & " pixels" & " | Altura: " & altura & " pixels"
+
+Definir imagem- Nada
+
+Finalizar sub
