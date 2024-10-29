@@ -1,0 +1,34 @@
+Private Sub transfer_Database()
+
+Set sh = worksheets("sheet1")
+Set dc = Worksheets("dic")
+Set shT = Workbooks.Open(path & file).Worksheets(1)
+
+ThisWorkbook.Activate
+
+If sh.AutoFilterMode Then sh.AutoFilter.ShowAllData Else: Selection.AutoFilter
+
+clearDatabase
+
+iRow =sh.Cells(Rows.count,1).end(xlup).row
+
+iCol = sh.Cells(1,Cells.Columns.Count).End(xlToLeft).Column
+iRow2 = shT.Cells(Rows.Count, 1).End(xlup).Row + 1
+
+	For Count = 1 To iCol
+		
+	mtIn = sh.Cells(1, Count)
+	mtFor = dc.Cells(Application.WorksheetFunction.Match(mtIn, dc.Columns(1),0),2)
+	
+	If mtFor = "-" Then GoTo next_
+		
+		line = Application.WorksheetFunction.Math(mtFor, shT.Rows(1),0)
+		shT.Range(Cells(2,line).Address & ":" & Cells(iRow2, line).Address).Copy	
+		sh.Cells(2,Count).PasteSpecial xlPasteValues
+next_:
+	Next Count
+
+shT.Activate
+ActiveWorkbook.Close False
+
+End Sub

@@ -1,0 +1,20 @@
+Sub atualizarConexaoQuery()
+
+Dim objConexao		As WorkbookConnection
+Dim backGround		As Boolean
+
+On Error Resume Next
+
+For Each objConexao in ThisWorkbook.Connections
+	
+	backGround = objConexao.OLEDBConnection.BackgroundQuery
+	objConexao.OLEDBConnection.BackgroundQuery = False
+	
+	objConexao.Refresh
+	objConexao.OLEDBConnection.BackgroundQuery = backGround
+
+Next
+
+On Error GoTo 0
+
+End Sub
